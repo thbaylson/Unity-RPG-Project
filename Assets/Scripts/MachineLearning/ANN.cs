@@ -23,13 +23,13 @@ namespace RPG.MachineLearning
 		// The list of all layers (input, hidden, and output)
 		List<Layer> layers = new List<Layer>();
 
-		public ANN(int nI, int nO, int nH, int nPH, double a)
+		public ANN(int numInputs, int numOutputs, int numHiddenLayers, int numNeuronsPerHiddenLayer, double alpha)
 		{
-			numInputs = nI;
-			numOutputs = nO;
-			numHiddenLayers = nH;
-			numNeuronsPerHiddenLayer = nPH;
-			alpha = a;
+			this.numInputs = numInputs;
+			this.numOutputs = numOutputs;
+			this.numHiddenLayers = numHiddenLayers;
+			this.numNeuronsPerHiddenLayer = numNeuronsPerHiddenLayer;
+			this.alpha = alpha;
 
 			if (numHiddenLayers > 0)
 			{
