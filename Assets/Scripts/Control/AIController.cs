@@ -12,6 +12,7 @@ namespace RPG.Control
         [SerializeField] float suspicionDuration = 3f;
 
         [SerializeField] PatrolPath patrolPath;
+        [SerializeField] [Range(0,1)] float patrolSpeedFraction = 0.2f;
         [SerializeField] float waypointTolerance = 1f;
         [SerializeField] float waypointDuration = 5f;
 
@@ -71,7 +72,7 @@ namespace RPG.Control
         {
             // Comment this out, and the AI will continue to chase for suspicionDuration seconds
             //    after the player leaves the AI's chaseRange
-            agent.StartMoveAction(transform.position);
+            agent.StartMoveAction(transform.position, patrolSpeedFraction);
         }
 
         private void PatrolBehavior()
@@ -90,7 +91,7 @@ namespace RPG.Control
 
             if (timeSinceArrivedAtWaypoint > waypointDuration)
             {
-                agent.StartMoveAction(nextPosition);
+                agent.StartMoveAction(nextPosition, patrolSpeedFraction);
             }
         }
 

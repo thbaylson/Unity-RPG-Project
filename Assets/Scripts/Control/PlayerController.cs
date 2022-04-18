@@ -78,7 +78,7 @@ namespace RPG.Control
                 if (Input.GetMouseButton(0))
                 {
                     // Move the agent's destination to the RaycastHit's impact point
-                    mover.StartMoveAction(hit.point);
+                    mover.StartMoveAction(hit.point, 1f);
                 }
 
                 canMove = true;

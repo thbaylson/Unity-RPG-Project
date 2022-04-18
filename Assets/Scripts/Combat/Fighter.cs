@@ -35,7 +35,7 @@ namespace RPG.Combat
             // If we're not within range to attack the target, then move towards the target
             if (!GetIsInRange())
             {
-                mover.MoveTo(target.transform.position);
+                mover.MoveTo(target.transform.position, 1f);
             }
             else
             {

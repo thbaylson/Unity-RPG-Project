@@ -7,6 +7,8 @@ namespace RPG.Movement
     /**<summary>Moves an object using the NavMeshAgent class.</summary>*/
     public class NavMeshMover : MonoBehaviour, IAction
     {
+        [SerializeField] float maxSpeed = 6;
+
         Animator animator;
         ActionScheduler actionScheduler;
         Health health;
@@ -30,16 +32,17 @@ namespace RPG.Movement
             UpdateAnimator();
         }
 
-        public void StartMoveAction(Vector3 destination)
+        public void StartMoveAction(Vector3 destination, float speedFraction)
         {
             actionScheduler.StartAction(this);
-            MoveTo(destination);
+            MoveTo(destination, speedFraction);
         }
 
         /**<summary>Moves this GameObject to a worldspace Vector3 position.</summary>*/
-        public void MoveTo(Vector3 destination)
+        public void MoveTo(Vector3 destination, float speedFraction)
         {
             agent.isStopped = false;
+            agent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
             agent.destination = destination;
         }
 

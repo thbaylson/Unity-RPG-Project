@@ -12,11 +12,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrangeEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2291635469736451184, guid: 3e61f0effc819c946931727243442231,
+        type: 3}
+      propertyPath: maxHealth
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466327443066646914, guid: 3e61f0effc819c946931727243442231,
+        type: 3}
+      propertyPath: weaponDamage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4107247347026153968, guid: 3e61f0effc819c946931727243442231,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 78be5954566d2d848918e51832341fa3, type: 2}
+    - target: {fileID: 5474691919423885679, guid: 3e61f0effc819c946931727243442231,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5.8
+      objectReference: {fileID: 0}
     - target: {fileID: 9035648564182323111, guid: 3e61f0effc819c946931727243442231,
         type: 3}
       propertyPath: m_RootOrder
