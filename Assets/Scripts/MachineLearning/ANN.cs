@@ -55,12 +55,12 @@ namespace RPG.MachineLearning
 		public List<double> Train(List<double> inputValues, List<double> desiredOutput)
 		{
 			List<double> outputValues = new List<double>();
-			outputValues = CalcOutput(inputValues, desiredOutput);
+			outputValues = CalcOutput(inputValues);
 			UpdateWeights(outputValues, desiredOutput);
 			return outputValues;
 		}
 
-		public List<double> CalcOutput(List<double> inputValues, List<double> desiredOutput)
+		public List<double> CalcOutput(List<double> inputValues)
 		{
 			List<double> inputs;
 			List<double> outputValues = new List<double>();
