@@ -19,7 +19,7 @@ namespace RPG.Core
         {
             // These puts a lower bound of 0 on currentHealth. Neat!
             currentHealth = Mathf.Max((currentHealth - damage), 0f);
-            print("Health: " + currentHealth);
+            //print("Health: " + currentHealth);
 
             if (currentHealth <= 0) Die();
         }

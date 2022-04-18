@@ -26,7 +26,7 @@ namespace RPG.Control
 
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-            print("Noting to do.");
+            //print("Noting to do.");
         }
 
         /**<summary>Helper method to handle combat logic.</summary>**/
