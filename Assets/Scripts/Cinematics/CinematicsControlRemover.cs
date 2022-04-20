@@ -1,27 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Playables;
+using RPG.Core;
+using RPG.Control;
 
 namespace RPG.Cinematics
 {
     public class CinematicsControlRemover : MonoBehaviour
     {
+        GameObject player;
+
         private void Start()
         {
             // Notice that these are called in the exact order that they are added
-            GetComponent<FakePlayableDirector>().onFinish += EnableControl;
-            GetComponent<FakePlayableDirector>().onFinish += DisableControl;
+            GetComponent<PlayableDirector>().played += DisableControl;
+            GetComponent<PlayableDirector>().stopped += EnableControl;
+            
+            player = GameObject.FindWithTag("Player");
         }
 
-        void DisableControl(float nonsenseFloat)
+        void DisableControl(PlayableDirector pd)
         {
-            print("DisableControl");
+            player.GetComponent<ActionScheduler>().CancelCurrentAction();
+            player.GetComponent<PlayerController>().enabled = false;
         }
 
         // This needs a float because the event Action<> was declared to require
-        void EnableControl(float nonsenseFloat)
+        void EnableControl(PlayableDirector pd)
         {
-            print("EnableControl");
+            player.GetComponent<PlayerController>().enabled = true;
         }
     }
 }

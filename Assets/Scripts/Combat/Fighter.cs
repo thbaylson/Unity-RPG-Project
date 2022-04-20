@@ -105,6 +105,7 @@ namespace RPG.Combat
         public void Cancel()
         {
             target = null;
+            mover.Cancel();
             StopAttack();
         }
 
