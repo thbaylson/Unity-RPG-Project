@@ -14,7 +14,6 @@ namespace RPG.Core
             // If the action has changed, cancel the lastAction
             if(lastAction != null)
             {
-                //print("Cancelling " + lastAction);
                 lastAction.Cancel();
             }
 

@@ -19,13 +19,10 @@ namespace RPG.SceneManagement
         [SerializeField] float fadeInTime = 0.75f;
         [SerializeField] float fadeWaitTime = 0.75f;
 
-        GameObject player;
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                player = other.gameObject;
                 StartCoroutine(Transition());
             }
         }

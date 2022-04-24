@@ -27,8 +27,6 @@ namespace RPG.Control
                 Gizmos.DrawLine(Vector3.up / 2 + pos, pos);
 
                 Gizmos.DrawLine(pos, GetWaypoint(GetNextIndex(i)));
-
-                //GetWaypoint(i).name = $"Waypoint {i}";
             }
         }
 

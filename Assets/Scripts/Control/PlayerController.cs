@@ -11,7 +11,6 @@ namespace RPG.Control
         NavMeshMover mover;
         Fighter combat;
 
-        // Start is called before the first frame update
         void Start()
         {
             health = GetComponent<Health>();
@@ -19,7 +18,6 @@ namespace RPG.Control
             combat = GetComponent<Fighter>();
         }
 
-        // Update is called once per frame
         private void Update()
         {
             if (health.IsDead) return;
