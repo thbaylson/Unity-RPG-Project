@@ -38,6 +38,11 @@ PrefabInstance:
       propertyPath: weaponDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2083581070666543184, guid: 4003ad9ba6827ad45afbd9651d8a5e4f,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: player
+      objectReference: {fileID: 0}
     - target: {fileID: 3339943172715626154, guid: 4003ad9ba6827ad45afbd9651d8a5e4f,
         type: 3}
       propertyPath: maxHealth

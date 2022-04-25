@@ -38,18 +38,25 @@ namespace RPG.SceneManagement
             // DontDestroyOnLoad only works if the gameObject is in the root of the scene (not childed)
             DontDestroyOnLoad(gameObject);
 
-            // Disable player control, fade out
+            // Fade out
             Fader fader = FindObjectOfType<Fader>();
             yield return fader.FadeOut(fadeOutTime);
 
+            // Save scene data
+            SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+            wrapper.Save();
+
             // Load the scene
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
+
+            // Load scene data
+            wrapper.Load();
 
             // Position the player
             SceneTrigger otherTrigger = GetOtherTrigger();
             UpdatePlayer(otherTrigger);
 
-            // Fade In, enable player control, destroy this GameObject
+            // Fade In, destroy this GameObject
             yield return new WaitForSeconds(fadeWaitTime);
             yield return fader.FadeIn(fadeInTime);
             Destroy(gameObject);
@@ -58,8 +65,10 @@ namespace RPG.SceneManagement
         private void UpdatePlayer(SceneTrigger otherTrigger)
         {
             GameObject player = GameObject.FindWithTag("Player");
+            player.GetComponent<NavMeshAgent>().enabled = false;
             player.GetComponent<NavMeshAgent>().Warp(otherTrigger.spawnPoint.position);
             player.transform.rotation = otherTrigger.spawnPoint.rotation;
+            player.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         private SceneTrigger GetOtherTrigger()

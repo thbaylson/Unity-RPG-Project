@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Movement
 {
     /**<summary>Moves an object using the NavMeshAgent class.</summary>*/
-    public class NavMeshMover : MonoBehaviour, IAction
+    public class NavMeshMover : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] float maxSpeed = 6;
 
@@ -15,7 +16,7 @@ namespace RPG.Movement
         
         NavMeshAgent agent;
 
-        void Start()
+        void Awake()
         {
             animator = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
@@ -61,6 +62,24 @@ namespace RPG.Movement
 
             // Set the Animator's blend value to the desired forward speed (on the Z axis)
             animator.SetFloat("forwardSpeed", forwardSpeed);
+        }
+
+        public object CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+
+        public void RestoreState(object state)
+        {
+            // position should be a SerializableVector3 or it'll throw an exception
+            SerializableVector3 position = (SerializableVector3)state;
+
+            // Alternative way to do the above statement. In this case, x may be a SerializableVector3 or null
+            //SerializableVector3 x = state as SerializableVector3;
+
+            GetComponent<NavMeshAgent>().enabled = false;
+            transform.position = position.ToVector();
+            GetComponent<NavMeshAgent>().enabled = true;
         }
     }
 }
