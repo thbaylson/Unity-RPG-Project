@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using RPG.Core;
 using RPG.Movement;
+using System;
 
 namespace RPG.Combat
 {
@@ -9,6 +10,8 @@ namespace RPG.Combat
         [SerializeField] float weaponDamage = 20f;
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float timeBetweenAttacks = 1f;
+        [SerializeField] GameObject weaponPrefab = null;
+        [SerializeField] Transform handTransform = null;
 
         Animator animator;
         ActionScheduler actionScheduler;
@@ -18,11 +21,16 @@ namespace RPG.Combat
 
         float timeSinceLastAttack = Mathf.Infinity;
 
-        private void Start()
+        private void Awake()
         {
             animator = GetComponent<Animator>();
             mover = GetComponent<NavMeshMover>();
             actionScheduler = GetComponent<ActionScheduler>();
+        }
+
+        private void Start()
+        {
+            SpawnWeapon();
         }
 
         private void Update()
@@ -43,6 +51,11 @@ namespace RPG.Combat
                 mover.Cancel();
                 AttackBehavior();
             }
+        }
+
+        private void SpawnWeapon()
+        {
+            Instantiate(weaponPrefab, handTransform);
         }
 
         private bool GetIsInRange()
