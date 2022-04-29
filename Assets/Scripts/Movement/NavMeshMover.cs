@@ -2,6 +2,7 @@
 using UnityEngine.AI;
 using RPG.Core;
 using RPG.Saving;
+using System.Collections.Generic;
 
 namespace RPG.Movement
 {
@@ -16,6 +17,7 @@ namespace RPG.Movement
         
         NavMeshAgent agent;
 
+        // GetComponent should be called in Awake to avoid race conditions
         void Awake()
         {
             animator = GetComponent<Animator>();
@@ -66,19 +68,20 @@ namespace RPG.Movement
 
         public object CaptureState()
         {
-            return new SerializableVector3(transform.position);
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data["position"] = new SerializableVector3(transform.position);
+            data["rotation"] = new SerializableVector3(transform.eulerAngles);
+            return data;
         }
 
         public void RestoreState(object state)
         {
-            // position should be a SerializableVector3 or it'll throw an exception
-            SerializableVector3 position = (SerializableVector3)state;
-
-            // Alternative way to do the above statement. In this case, x may be a SerializableVector3 or null
-            //SerializableVector3 x = state as SerializableVector3;
+            // data should be a Dictionary<string, object> or it'll throw an exception
+            Dictionary<string, object> data = (Dictionary<string, object>)state;
 
             GetComponent<NavMeshAgent>().enabled = false;
-            transform.position = position.ToVector();
+            transform.position = ((SerializableVector3)data["position"]).ToVector();
+            transform.eulerAngles = ((SerializableVector3)data["rotation"]).ToVector();
             GetComponent<NavMeshAgent>().enabled = true;
         }
     }

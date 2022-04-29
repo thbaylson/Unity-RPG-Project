@@ -10,6 +10,16 @@ namespace RPG.SceneManagement
     {
         const string defaultSaveFile = "save";
 
+        // This makes Start a coroutine, which is automatically started when the scene loads
+        IEnumerator Start()
+        {
+            Fader fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediate();
+
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+            yield return fader.FadeIn();
+        }
+
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.L))

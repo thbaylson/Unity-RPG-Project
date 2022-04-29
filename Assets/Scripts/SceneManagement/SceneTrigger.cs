@@ -56,6 +56,9 @@ namespace RPG.SceneManagement
             SceneTrigger otherTrigger = GetOtherTrigger();
             UpdatePlayer(otherTrigger);
 
+            // Save the state of the scene at this point. Creates a checkpoint every time a scene is loaded
+            wrapper.Save();
+
             // Fade In, destroy this GameObject
             yield return new WaitForSeconds(fadeWaitTime);
             yield return fader.FadeIn(fadeInTime);

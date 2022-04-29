@@ -10,14 +10,21 @@ namespace RPG.SceneManagement
                 
         CanvasGroup canvasGroup;
 
-        void Start()
+        // GetComponent should be called in Awake to avoid race conditions
+        void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public IEnumerator FadeOut(float? configFadeTime)
+        public void FadeOutImmediate()
         {
-            float time = configFadeTime ?? defaultFadeOutTime;
+            canvasGroup.alpha = 1;
+            
+        }
+
+        public IEnumerator FadeOut(float? customFadeTime)
+        {
+            float time = customFadeTime ?? defaultFadeOutTime;
 
             while (canvasGroup.alpha < 1)
             {
@@ -28,9 +35,9 @@ namespace RPG.SceneManagement
             }
         }
 
-        public IEnumerator FadeIn(float? configFadeTime)
+        public IEnumerator FadeIn(float? customFadeTime)
         {
-            float time = configFadeTime ?? defaultFadeOutTime;
+            float time = customFadeTime ?? defaultFadeOutTime;
 
             while (canvasGroup.alpha > 0)
             {
