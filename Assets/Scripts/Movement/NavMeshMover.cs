@@ -2,7 +2,6 @@
 using UnityEngine.AI;
 using RPG.Core;
 using RPG.Saving;
-using System.Collections.Generic;
 
 namespace RPG.Movement
 {
@@ -68,21 +67,29 @@ namespace RPG.Movement
 
         public object CaptureState()
         {
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data["position"] = new SerializableVector3(transform.position);
-            data["rotation"] = new SerializableVector3(transform.eulerAngles);
+            MoverSaveData data = new MoverSaveData();
+            data.position = new SerializableVector3(transform.position);
+            data.rotation = new SerializableVector3(transform.eulerAngles);
             return data;
         }
 
         public void RestoreState(object state)
         {
-            // data should be a Dictionary<string, object> or it'll throw an exception
-            Dictionary<string, object> data = (Dictionary<string, object>)state;
+            // data should be a MoverSaveData or it'll throw an exception
+            MoverSaveData data = (MoverSaveData)state;
 
             GetComponent<NavMeshAgent>().enabled = false;
-            transform.position = ((SerializableVector3)data["position"]).ToVector();
-            transform.eulerAngles = ((SerializableVector3)data["rotation"]).ToVector();
+            transform.position = data.position.ToVector();
+            transform.eulerAngles = data.rotation.ToVector();
             GetComponent<NavMeshAgent>().enabled = true;
+        }
+
+        // This annotation ensures the struct itself is serializable. Does NOT ensure the contained data is serializable
+        [System.Serializable]
+        struct MoverSaveData
+        {
+            public SerializableVector3 position;
+            public SerializableVector3 rotation;
         }
     }
 }

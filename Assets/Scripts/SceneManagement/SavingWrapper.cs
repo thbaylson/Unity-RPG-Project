@@ -6,6 +6,8 @@ using RPG.Saving;
 
 namespace RPG.SceneManagement
 {
+    // Note: This class does not currently support saving objects created at runtime
+    //    for more information about implementing this functionality, visit: https://www.gamedev.tv/courses/637539/lectures/12236096
     public class SavingWrapper : MonoBehaviour
     {
         const string defaultSaveFile = "save";
