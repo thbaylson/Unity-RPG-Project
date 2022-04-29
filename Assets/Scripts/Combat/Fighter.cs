@@ -7,17 +7,17 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
-        [SerializeField] float weaponDamage = 20f;
-        [SerializeField] float weaponRange = 2f;
         [SerializeField] float timeBetweenAttacks = 1f;
-        [SerializeField] GameObject weaponPrefab = null;
-        [SerializeField] Transform handTransform = null;
+        [SerializeField] Transform leftHand = null;
+        [SerializeField] Transform rightHand = null;
+        [SerializeField] Weapon defaultWeapon = null;// This is a scriptable object
 
         Animator animator;
         ActionScheduler actionScheduler;
         
         NavMeshMover mover;
         Health target;
+        Weapon currentWeapon = null;
 
         float timeSinceLastAttack = Mathf.Infinity;
 
@@ -30,7 +30,7 @@ namespace RPG.Combat
 
         private void Start()
         {
-            SpawnWeapon();
+            EquipWeapon(defaultWeapon);
         }
 
         private void Update()
@@ -53,14 +53,17 @@ namespace RPG.Combat
             }
         }
 
-        private void SpawnWeapon()
+        public void EquipWeapon(Weapon weapon)
         {
-            Instantiate(weaponPrefab, handTransform);
+            currentWeapon = weapon;
+
+            // The Weapon Scriptable Object handles spawning
+            weapon.Spawn(leftHand, rightHand, animator);
         }
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.Range;
         }
 
         private void AttackBehavior()
@@ -95,7 +98,7 @@ namespace RPG.Combat
 
         private float DamageCalc()
         {
-            return weaponDamage;
+            return currentWeapon.Damage;
         }
 
         /**<summary>Returns true if the given CombatTarget is NOT null and is NOT dead.</summary>**/

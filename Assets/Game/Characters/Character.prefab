@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5544292540724555133}
   - component: {fileID: 1463455653067832600}
+  - component: {fileID: 7559840838204734338}
   - component: {fileID: 8822087146691195828}
   - component: {fileID: 8822087146691195830}
   - component: {fileID: 6893359628495175327}
@@ -77,6 +78,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!54 &7559840838204734338
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3425669596042093255}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &8822087146691195828
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -155,9 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138e51ddc7186514ba7ee0cad6abe497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDamage: 20
-  weaponRange: 1.25
   timeBetweenAttacks: 1
+  handTransform: {fileID: 0}
+  defaultWeapon: {fileID: 0}
 --- !u!114 &3339943172715626154
 MonoBehaviour:
   m_ObjectHideFlags: 0

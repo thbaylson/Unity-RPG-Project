@@ -22,6 +22,12 @@ PrefabInstance:
       propertyPath: weaponDamage
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3466327443066646914, guid: 3e61f0effc819c946931727243442231,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e939253122c6cc47b878ad1469d3944,
+        type: 2}
     - target: {fileID: 4382318642035026522, guid: 3e61f0effc819c946931727243442231,
         type: 3}
       propertyPath: chaseRange
