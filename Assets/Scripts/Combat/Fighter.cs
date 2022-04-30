@@ -87,13 +87,26 @@ namespace RPG.Combat
             animator.SetTrigger("attack");
         }
 
-        /**<summary>Animation Event. Called from "Unarmed-Attack-L2" and "...-L3"</summary>**/
+        /**<summary>Animation Event. Called from melee based attacking animations.</summary>**/
         private void Hit()
         {
             if (target == null || !GetIsInRange()) return;
 
-            animator.SetBool("firstAttack", !animator.GetBool("firstAttack"));
-            target.TakeDamage(DamageCalc());
+            if (currentWeapon.HasProjectile())// currentWeapon is a ranged weapon
+            {
+                currentWeapon.LaunchProjectile(leftHand, rightHand, target);
+            }
+            else// currentWeapon must be a melee weapon
+            {
+                animator.SetBool("firstAttack", !animator.GetBool("firstAttack"));
+                target.TakeDamage(DamageCalc());
+            }
+        }
+
+        /**<summary>Animation Event. Called from range based attacking animations.</summary>**/
+        void Shoot()
+        {
+            Hit();
         }
 
         private float DamageCalc()

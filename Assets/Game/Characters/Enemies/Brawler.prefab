@@ -10,12 +10,12 @@ PrefabInstance:
     - target: {fileID: 2170232093246144541, guid: 3e61f0effc819c946931727243442231,
         type: 3}
       propertyPath: m_Name
-      value: OrangeEnemy
+      value: Brawler
       objectReference: {fileID: 0}
     - target: {fileID: 2291635469736451184, guid: 3e61f0effc819c946931727243442231,
         type: 3}
       propertyPath: maxHealth
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3466327443066646914, guid: 3e61f0effc819c946931727243442231,
         type: 3}
