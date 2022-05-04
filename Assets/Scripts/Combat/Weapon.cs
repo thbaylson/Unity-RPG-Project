@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using RPG.Core;
+using System;
 
 namespace RPG.Combat
 {
     [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Make New Weapon", order = 0)]
     public class Weapon : ScriptableObject
-    {   
+    {
+        const string weaponName = "Weapon";
+
         [SerializeField] AnimatorOverrideController animatorOverride = null;
         [SerializeField] GameObject equippedPrefab = null;
 
@@ -19,14 +22,33 @@ namespace RPG.Combat
 
         public void Spawn(Transform leftHand, Transform rightHand, Animator animator)
         {
+            DestroyOldWeapon(leftHand, rightHand);
+
             if(equippedPrefab != null)
             {
-                Instantiate(equippedPrefab, (isRightHanded ? rightHand : leftHand));
+                GameObject weapon = Instantiate(equippedPrefab, (isRightHanded ? rightHand : leftHand));
+                weapon.name = weaponName;
             }
             if(animatorOverride != null)
             {
                 animator.runtimeAnimatorController = animatorOverride;
             }
+        }
+
+        private void DestroyOldWeapon(Transform leftHand, Transform rightHand)
+        {
+            Transform oldWeapon = rightHand.Find(weaponName);
+            // If there is nothing in the rightHand, check the leftHand
+            if(oldWeapon == null)
+            {
+                oldWeapon = leftHand.Find(weaponName);
+            }
+            if (oldWeapon == null) return;
+
+            // If oldWeapon was not null, then we have to destroy it
+            // Change the to-be-destroyed weapon's name to avoid weird race conditions
+            oldWeapon.name = "DESTROYING";
+            Destroy(oldWeapon.gameObject);
         }
 
         // TODO: MeleeWeapons don't need this. Should be refactored into a RangedWeapon class
